@@ -11,10 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import br.com.alura.gerenciador.web.Cookies;
 
-import org.apache.tomcat.util.http.Cookies;
-
-import br.com.alura.gerenciador.Usuario;
 
 @WebFilter(urlPatterns = "/*")
 public class FiltroDeAuditoria implements Filter {
@@ -40,18 +38,10 @@ public class FiltroDeAuditoria implements Filter {
 	}
 
 	private String getUsuario(HttpServletRequest req) {
-		String usuario = "<deslogado>";
-		Cookie[] cookies = req.getCookies();
-		if (cookies == null) {
-			return usuario;
-		} else {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("usuario.logado")) {
-					usuario = cookie.getValue();
-				}
-			}
-		}
-		return usuario;
+
+		Cookie cookie = new Cookies(req.getCookies()).buscaUsuarioLogado();
+		if(cookie==null) return "<deslogado>";
+		return cookie.getValue();
 	}
 
 }
