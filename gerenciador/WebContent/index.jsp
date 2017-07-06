@@ -15,7 +15,8 @@
 			type="password" name="senha"> <input type="submit"
 			value="Enviar">
 	</form>
-	<form action="logout" method="POST">
+	<form action="executa" method="POST">
+		<input type="hidden" name="tarefa" value="Logout>
 		<input type="submit" value="Deslogar">
 
 	</form>
